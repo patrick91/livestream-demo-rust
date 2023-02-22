@@ -1,7 +1,8 @@
-use async_graphql::{EmptySubscription, Object, ID};
+use async_graphql::{EmptySubscription, Object, Result, ID};
 use async_graphql_axum::{GraphQLRequest, GraphQLResponse};
 use axum::middleware::from_extractor;
 use axum::{extract::Extension, routing::post, Router};
+use cat_fact::CatFact;
 use http::{HeaderValue, Method};
 use tower::ServiceBuilder;
 use tower_http::cors::Any;
@@ -9,6 +10,7 @@ use tower_http::{compression::CompressionLayer, cors::CorsLayer};
 
 use crate::thing::{get_thing, CreateThing, Thing};
 
+mod cat_fact;
 mod router_auth;
 mod thing;
 
@@ -26,6 +28,13 @@ impl Query {
     #[graphql(entity)]
     async fn thing_entity_by_id(&self, id: ID) -> Option<Thing> {
         get_thing(id)
+    }
+
+    async fn cat_fact(&self) -> Result<cat_fact::CatFact> {
+        let url = "https://catfact.ninja/fact";
+        let response = reqwest::get(url).await?;
+
+        return response.json::<cat_fact::CatFact>().await.map_err(|e| e.into());
     }
 }
 
