@@ -5,7 +5,7 @@ use axum::{
 use serde_json::{json, Value};
 use tower::ServiceExt;
 
-use my_subgraph::app;
+use cat_facts::app;
 
 pub(crate) async fn run_graphql_query(query: &str, operation: &str) -> Value {
     let app = app();

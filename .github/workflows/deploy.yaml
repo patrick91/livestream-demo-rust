@@ -14,7 +14,6 @@ jobs:
         run: echo "::warning file=.github/workflows/deploy.yaml,line=10,endLine=14,title=No Deploy step defined::Define your custom workflow for deploying your subgraph here."
 
   prepare_schema:
-    if: false
     uses: ./.github/workflows/apollo.yaml
 
   publish_schema:

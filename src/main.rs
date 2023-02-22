@@ -4,7 +4,7 @@ use axum::Server;
 use tracing::info;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt, EnvFilter, FmtSubscriber};
 
-use my_subgraph::app;
+use cat_facts::app;
 
 #[tokio::main]
 async fn main() {

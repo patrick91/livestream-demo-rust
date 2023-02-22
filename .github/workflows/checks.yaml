@@ -3,7 +3,6 @@ on: push
 
 jobs:
   prepare_schema:
-    if: false
     uses: ./.github/workflows/apollo.yaml
 
   check_schema:
